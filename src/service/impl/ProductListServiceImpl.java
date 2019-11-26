@@ -16,4 +16,9 @@ public class ProductListServiceImpl implements service.ProductListService {
     public List<Product> getProductList() {
         return productListDao.getProductList();
     }
+
+    @Override
+    public List<Product> getProductListByLimit(int index, int maxCount) {
+        return productListDao.getProductListByLimit(index , maxCount);
+    }
 }

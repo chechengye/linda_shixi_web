@@ -30,4 +30,15 @@ public class ProductListDao {
         }
         return productList;
     }
+
+    public List<Product> getProductListByLimit(int index, int maxCount) {
+        String sql = "select p.pid , p.pname,p.market_price , p.shop_price , p.pimage from product p limit  ?, ?";
+        List<Product> products = null;
+        try {
+            products = qr.query(sql, new BeanListHandler<>(Product.class), index, maxCount);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
 }
