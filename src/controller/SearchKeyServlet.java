@@ -16,10 +16,12 @@ public class SearchKeyServlet extends HttpServlet {
     private SearchService searchService;
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
         String key = req.getParameter("key");
         System.out.println(key);
         searchService = new SearchServiceImpl();
         List<Product> productList = searchService.getProductListByKey(key);
+        System.out.println("productList = " + productList);
         resp.setContentType("text/html;charset=utf-8");
         resp.setCharacterEncoding("utf-8");
         resp.getWriter().write(JSON.toJSONString(productList));

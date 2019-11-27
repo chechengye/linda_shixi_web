@@ -50,7 +50,7 @@
 				<form class="navbar-form navbar-right" role="search">
 					<div class="form-group" style="position: relative;">
 						<input id="search" type="text" class="form-control" placeholder="Search" onkeyup="searchKey(this)">
-						<div id="resultList" style="z-index:1000;height: 200px ; width: 177px; background: white;position: absolute;"></div>
+						<div id="resultList" style="z-index:1000;height: 200px ; width: 177px; background: white;position: absolute; display: none;"></div>
 					</div>
 					<button type="submit" class="btn btn-default">Submit</button>
 				</form>
@@ -62,19 +62,40 @@
 		function searchKey(obj) {
             var key = $(obj).val();
             var contentStr = "";
-            $.ajax({
-                url:"/searchKey",
-                data:{"key":key},
-                type:"POST",
-				dataType:"json",
-                success: function (data) {
-					for (var i = 0 ; i < data.length ; i++){
-                        contentStr += "<div>" + data[i].pname + "</div>";
-					}
-					$("#resultList").html(contentStr);
-                }
-            });
+            if(key != ""){
+                $.ajax({
+                    url:"/searchKey",
+                    data:{"key":key},
+                    type:"POST",
+                    dataType:"json",
+                    success: function (data) {
+                        if(data.length > 0){
+
+                            for (var i = 0 ; i < data.length ; i++){
+                                contentStr += "<div style='font-size: 12px; padding: 5px;background: ' onmouseover='mouseoverFn(this)' onmouseout='mouseoutFn(this)' onclick='clickFn(this)'>" + data[i].pname + "</div>";
+                            }
+                            $("#resultList").html(contentStr);
+                            $("#resultList").css("display" , "block");
+                        }
+
+                    }
+                });
+			}else{
+                $("#resultList").css("display" , "none");
+			}
+
         }
 
+        function mouseoverFn(obj) {
+			$(obj).css("background" , "#2aabd2");
+        }
+        function mouseoutFn(obj) {
+			$(obj).css("background" , "#fff")
+        }
+
+        function clickFn(obj){
+		    $("#search").val($(obj).html());
+            $("#resultList").css("display" , "none");
+		}
 	</script>
 </div>
