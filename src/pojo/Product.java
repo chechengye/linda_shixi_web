@@ -8,6 +8,7 @@ public class Product implements Serializable{
     private String market_price;
     private String shop_price;
     private String pimage;
+    private String pdesc;
 
     public int getPid() {
         return pid;
@@ -49,6 +50,14 @@ public class Product implements Serializable{
         this.pimage = pimage;
     }
 
+    public String getPdesc() {
+        return pdesc;
+    }
+
+    public void setPdesc(String pdesc) {
+        this.pdesc = pdesc;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -57,6 +66,7 @@ public class Product implements Serializable{
                 ", market_price='" + market_price + '\'' +
                 ", shop_price='" + shop_price + '\'' +
                 ", pimage='" + pimage + '\'' +
+                ", pdesc='" + pdesc + '\'' +
                 '}';
     }
 }

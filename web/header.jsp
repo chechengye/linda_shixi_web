@@ -48,12 +48,33 @@
 					<li><a href="#">电脑办公</a></li>
 				</ul>
 				<form class="navbar-form navbar-right" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search">
+					<div class="form-group" style="position: relative;">
+						<input id="search" type="text" class="form-control" placeholder="Search" onkeyup="searchKey(this)">
+						<div id="resultList" style="z-index:1000;height: 200px ; width: 177px; background: white;position: absolute;"></div>
 					</div>
 					<button type="submit" class="btn btn-default">Submit</button>
 				</form>
 			</div>
 		</div>
 	</nav>
+	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		function searchKey(obj) {
+            var key = $(obj).val();
+            var contentStr = "";
+            $.ajax({
+                url:"/searchKey",
+                data:{"key":key},
+                type:"POST",
+				dataType:"json",
+                success: function (data) {
+					for (var i = 0 ; i < data.length ; i++){
+                        contentStr += "<div>" + data[i].pname + "</div>";
+					}
+					$("#resultList").html(contentStr);
+                }
+            });
+        }
+
+	</script>
 </div>

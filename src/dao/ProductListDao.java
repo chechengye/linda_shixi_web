@@ -1,6 +1,7 @@
 package dao;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import pojo.Product;
 import util.C3P0Util;
@@ -40,5 +41,16 @@ public class ProductListDao {
             e.printStackTrace();
         }
         return products;
+    }
+
+    public Product getProductByPid(String pid) {
+        String sql = "select p.pid , p.pname,p.market_price , p.shop_price , p.pimage , p.pdesc from product p where pid = ?";
+        Product product = null;
+        try {
+            product = qr.query(sql, new BeanHandler<>(Product.class), pid);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return product;
     }
 }

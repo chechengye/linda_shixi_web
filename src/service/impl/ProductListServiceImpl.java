@@ -21,4 +21,9 @@ public class ProductListServiceImpl implements service.ProductListService {
     public List<Product> getProductListByLimit(int index, int maxCount) {
         return productListDao.getProductListByLimit(index , maxCount);
     }
+
+    @Override
+    public Product getProductByPid(String pid) {
+        return productListDao.getProductByPid(pid);
+    }
 }
